@@ -1,6 +1,5 @@
-//add แล้วนะไอเวร
 import React, { useState, useEffect, useRef } from 'react';
-import { ChevronLeft, ChevronRight, X, Trash2, PlusCircle, Save, Edit, BookOpen } from 'lucide-react';
+import { ChevronLeft, ChevronRight, X, Trash2, PlusCircle, Save, Edit, BookOpen, Smile, ArrowRight } from 'lucide-react';
 // Import Three.js necessary modules
 import {
   Scene,
@@ -18,7 +17,7 @@ import {
 const MONTHS = [
   'มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน',
   'พฤษภาคม', 'มิถุนายน', 'กรกฎาคม', 'สิงหาคม',
-  'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'
+  'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม' // แก้ไข: เพิ่ม พฤศจิกายน
 ];
 const WEEKDAYS = ['อา', 'จ', 'อ', 'พ', 'พฤ', 'ศ', 'ส'];
 
@@ -575,7 +574,7 @@ const CustomMoodFormModal = ({ isOpen, onClose, onSave, moodToEdit }) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-60 p-4">
+    <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-[60] p-4">
       <div className="bg-white rounded-xl shadow-2xl w-full max-w-full sm:max-w-sm p-4 sm:p-6">
         <div className="flex justify-between items-center pb-4 border-b">
           <h3 className="text-xl font-bold text-gray-800 flex items-center">
@@ -635,7 +634,7 @@ const CustomMoodFormModal = ({ isOpen, onClose, onSave, moodToEdit }) => {
                   }
                 }}
                 required
-                className="grow border border-gray-300 rounded-lg p-3 font-mono"
+                className="flex-grow border border-gray-300 rounded-lg p-3 font-mono"
                 placeholder="#RRGGBB"
                 maxLength={7}
               />
@@ -658,7 +657,7 @@ const CustomMoodsManagementModal = ({ isOpen, onClose, customMoods, onEdit, onDe
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-60 p-4">
+    <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-[60] p-4">
       <div className="bg-white rounded-xl shadow-2xl w-full max-w-full sm:max-w-xl p-4 sm:p-6">
         <div className="flex justify-between items-center pb-4 border-b">
           <h3 className="text-xl font-bold text-gray-800 flex items-center">
@@ -836,7 +835,7 @@ const MoodNoteEditor = React.memo(({
         </div>
 
         {/* === 2. Note Editor (Textarea Styled as Rich Editor) === */}
-        <div className="mt-4 grow flex flex-col">
+        <div className="mt-4 flex-grow flex flex-col">
           <h4 className="text-sm font-semibold text-gray-600 mb-2 flex items-center">
             <BookOpen size={16} className="text-indigo-500 mr-2" />
             2. บันทึก/โน้ตประจำวัน (ไม่เกิน 500 ตัวอักษร)
@@ -848,7 +847,7 @@ const MoodNoteEditor = React.memo(({
             }}
             placeholder={notePlaceholder}
             maxLength={500}
-            className="grow w-full border border-gray-300 rounded-xl p-4 resize-none focus:ring-indigo-500 focus:border-indigo-500 shadow-inner bg-gray-50/70 text-gray-800 text-base font-serif leading-relaxed transition-shadow"
+            className="flex-grow w-full border border-gray-300 rounded-xl p-4 resize-none focus:ring-indigo-500 focus:border-indigo-500 shadow-inner bg-gray-50/70 text-gray-800 text-base font-serif leading-relaxed transition-shadow"
             style={{ minHeight: '150px' }}
             autoFocus
           />
@@ -935,12 +934,48 @@ const MoodNoteEditor = React.memo(({
   );
 });
 
+// === NEW LANDING SCREEN COMPONENT ===
+const LandingScreen = ({ onStart }) => {
+  return (
+    <div className="relative z-20 w-full max-w-lg sm:max-w-xl text-center">
+      <div className="bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl p-6 sm:p-10 w-full transition-all duration-500 transform scale-100 hover:scale-[1.01] border-b-8 border-indigo-500">
+
+        <Smile size={64} className="mx-auto text-indigo-500 mb-4 animate-bounce" />
+
+        <h1 className="text-4xl sm:text-5xl font-extrabold text-gray-900 mb-3 leading-tight">
+          Moodfolio
+        </h1>
+
+        <p className="text-xl sm:text-2xl font-semibold text-indigo-600 mb-6">
+          ปฏิทินบันทึกอารมณ์ของคุณ
+        </p>
+
+        <p className="text-base text-gray-600 mb-10 max-w-md mx-auto">
+          ติดตามอารมณ์และเหตุการณ์สำคัญในแต่ละวัน เพื่อทำความเข้าใจรูปแบบชีวิตและสุขภาพจิตของคุณ
+          เราจะช่วยคุณสร้างพอร์ตโฟลิโออารมณ์ที่เป็นประโยชน์ต่อตัวคุณเอง
+        </p>
+
+        <button
+          onClick={onStart}
+          className="w-full sm:w-auto flex items-center justify-center mx-auto bg-indigo-600 text-white text-lg font-bold py-3 px-8 rounded-full shadow-xl hover:bg-indigo-700 transition-all duration-300 transform hover:scale-105 active:scale-95 group"
+        >
+          เริ่มบันทึกอารมณ์
+          <ArrowRight size={20} className="ml-2 group-hover:translate-x-1 transition-transform" />
+        </button>
+      </div>
+    </div>
+  );
+}
+
 // === MAIN COMPONENT ===
 function App() {
   const today = new Date();
   const [currentMonthIndex, setCurrentMonthIndex] = useState(today.getMonth());
   const [currentYear, setCurrentYear] = useState(today.getFullYear());
   const [selectedDay, setSelectedDay] = useState(null);
+
+  // New state for controlling the landing page
+  const [isAppReady, setIsAppReady] = useState(false);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isCustomModalOpen, setIsCustomModalOpen] = useState(false);
@@ -959,12 +994,17 @@ function App() {
   const allMoods = [...DEFAULT_MOODS, ...customMoods];
 
   // --- Handlers สำหรับ localStorage ---
-  // Note: We use localStorage for simplicity, but for a real app, Firestore should be used.
   useEffect(() => {
     const savedMoods = JSON.parse(localStorage.getItem('moodRecords')) || {};
     const savedCustoms = JSON.parse(localStorage.getItem('customMoods')) || [];
     setMoodRecords(savedMoods);
     setCustomMoods(savedCustoms);
+
+    // Check if user has visited before (e.g., check for existing data)
+    // If data exists, bypass landing screen, otherwise show it.
+    if (Object.keys(savedMoods).length > 0 || savedCustoms.length > 0) {
+      setIsAppReady(true);
+    }
   }, []);
 
   useEffect(() => {
@@ -1089,10 +1129,13 @@ function App() {
   // --- Render Calendar ---
   const calendarDays = getCalendarData(currentYear, currentMonthIndex);
 
+  // === RENDER MAIN APPLICATION ===
   return (
     <div className="relative min-h-screen flex flex-col items-center justify-center p-4 antialiased overflow-hidden bg-gray-900">
+
       {/* === Dynamic Background Layer (FIX: Conditionally render based on modal state) === */}
       <div className="fixed inset-0 w-full h-full z-10">
+        {/* Only show background if no modal is open */}
         {!isModalOpen && !isCustomModalOpen && !isManagementModalOpen && (
           <FloatingLines
             enabledWaves={['top', 'middle', 'bottom']}
@@ -1107,126 +1150,130 @@ function App() {
         )}
       </div>
 
-      {/* === Calendar Content Layer === */}
-      <div className="relative z-20 w-full max-w-lg sm:max-w-xl">
-        <div className="bg-white/90 backdrop-blur-sm rounded-xl shadow-2xl p-4 sm:p-6 w-full transition-all duration-300">
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-center text-indigo-700 mb-6 flex items-center justify-center">
-            <span className="mr-2">Moodfolio</span> 🗓️
-          </h1>
+      {/* === Conditional Rendering: Landing Screen vs. Calendar === */}
+      {!isAppReady ? (
+        <LandingScreen onStart={() => setIsAppReady(true)} />
+      ) : (
+        <div className="relative z-20 w-full max-w-lg sm:max-w-xl">
+          <div className="bg-white/90 backdrop-blur-sm rounded-xl shadow-2xl p-4 sm:p-6 w-full transition-all duration-300">
+            <h1 className="text-2xl sm:text-3xl font-extrabold text-center text-indigo-700 mb-6 flex items-center justify-center">
+              <span className="mr-2">Moodfolio</span> 🗓️
+            </h1>
 
-          {/* === ส่วนควบคุม เดือน/ปี === */}
-          <div className="flex justify-between items-center mb-6 border-b pb-4">
-            <button onClick={() => handleMonthChange(-1)} className="p-2 rounded-full text-indigo-600 hover:bg-indigo-100 transition-colors">
-              <ChevronLeft size={24} />
-            </button>
+            {/* === ส่วนควบคุม เดือน/ปี === */}
+            <div className="flex justify-between items-center mb-6 border-b pb-4">
+              <button onClick={() => handleMonthChange(-1)} className="p-2 rounded-full text-indigo-600 hover:bg-indigo-100 transition-colors">
+                <ChevronLeft size={24} />
+              </button>
 
-            <div className="flex items-center space-x-3">
-              <h2 className="text-xl sm:text-2xl font-bold text-gray-800">
-                {MONTHS[currentMonthIndex]}
-              </h2>
-              <select
-                value={currentYear}
-                onChange={handleYearChange}
-                className="border border-gray-300 rounded-lg py-2 px-3 text-base sm:text-lg font-medium focus:ring-indigo-500 focus:border-indigo-500 bg-white/70"
-              >
-                {[...Array(11)].map((_, i) => {
-                  const yearOption = today.getFullYear() - 5 + i;
-                  return (<option key={yearOption} value={yearOption}>{yearOption}</option>);
-                })}
-              </select>
+              <div className="flex items-center space-x-3">
+                <h2 className="text-xl sm:text-2xl font-bold text-gray-800">
+                  {MONTHS[currentMonthIndex]}
+                </h2>
+                <select
+                  value={currentYear}
+                  onChange={handleYearChange}
+                  className="border border-gray-300 rounded-lg py-2 px-3 text-base sm:text-lg font-medium focus:ring-indigo-500 focus:border-indigo-500 bg-white/70"
+                >
+                  {[...Array(11)].map((_, i) => {
+                    const yearOption = today.getFullYear() - 5 + i;
+                    return (<option key={yearOption} value={yearOption}>{yearOption}</option>);
+                  })}
+                </select>
+              </div>
+
+              <button onClick={() => handleMonthChange(1)} className="p-2 rounded-full text-indigo-600 hover:bg-indigo-100 transition-colors">
+                <ChevronRight size={24} />
+              </button>
             </div>
 
-            <button onClick={() => handleMonthChange(1)} className="p-2 rounded-full text-indigo-600 hover:bg-indigo-100 transition-colors">
-              <ChevronRight size={24} />
-            </button>
-          </div>
+            {/* === ส่วนแสดงปฏิทิน === */}
+            <div className="grid grid-cols-7 text-center text-xs sm:text-sm font-semibold text-gray-600 mb-2">
+              {WEEKDAYS.map(day => (<div key={day} className="p-1 sm:p-2">{day}</div>))}
+            </div>
 
-          {/* === ส่วนแสดงปฏิทิน === */}
-          <div className="grid grid-cols-7 text-center text-xs sm:text-sm font-semibold text-gray-600 mb-2">
-            {WEEKDAYS.map(day => (<div key={day} className="p-1 sm:p-2">{day}</div>))}
-          </div>
+            <div className="grid grid-cols-7 gap-1 sm:gap-2">
+              {calendarDays.map((day, index) => {
+                const dateKey = day ? `${currentYear}-${String(currentMonthIndex + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}` : null;
+                const record = moodRecords[dateKey];
+                const isToday = day === today.getDate() && currentMonthIndex === today.getMonth() && currentYear === today.getFullYear();
 
-          <div className="grid grid-cols-7 gap-1 sm:gap-2">
-            {calendarDays.map((day, index) => {
-              const dateKey = day ? `${currentYear}-${String(currentMonthIndex + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}` : null;
-              const record = moodRecords[dateKey];
-              const isToday = day === today.getDate() && currentMonthIndex === today.getMonth() && currentYear === today.getFullYear();
+                const isMoodRecorded = !!record?.mood;
+                const isCustom = record?.mood?.is_custom === true;
+                const hasNote = record?.note && record.note.trim() !== '';
+                const isOkayStatus = record?.isOkay; // true, false, or null
 
-              const isMoodRecorded = !!record?.mood;
-              const isCustom = record?.mood?.is_custom === true;
-              const hasNote = record?.note && record.note.trim() !== '';
-              const isOkayStatus = record?.isOkay; // true, false, or null
+                const moodClass = record?.mood?.color_tailwind || '';
+                const moodStyle = isCustom && record?.mood?.color_hex ? { backgroundColor: record.mood.color_hex } : {};
 
-              const moodClass = record?.mood?.color_tailwind || '';
-              const moodStyle = isCustom && record?.mood?.color_hex ? { backgroundColor: record.mood.color_hex } : {};
+                // 1. Determine the border color based on the explicit status request
+                const isStatusRecorded = isOkayStatus !== null;
+                let borderClass = 'border-transparent';
 
-              // 1. Determine the border color based on the explicit status request
-              const isStatusRecorded = isOkayStatus !== null;
-              let borderClass = 'border-transparent';
+                if (isOkayStatus === true) {
+                  // Green border for 'OK'
+                  borderClass = 'border-green-500 ring-2 ring-green-500/50';
+                } else if (isOkayStatus === false) {
+                  // Red border for 'NOT OK'
+                  borderClass = 'border-red-500 ring-2 ring-red-500/50';
+                } else if (isMoodRecorded) {
+                  // If no status, but mood exists, show a subtle white border
+                  borderClass = 'border-white/50';
+                } else if (isToday) {
+                  // If no status, no mood, but it's today, use indigo
+                  borderClass = 'border-indigo-500';
+                }
 
-              if (isOkayStatus === true) {
-                // Green border for 'OK'
-                borderClass = 'border-green-500 ring-2 ring-green-500/50';
-              } else if (isOkayStatus === false) {
-                // Red border for 'NOT OK'
-                borderClass = 'border-red-500 ring-2 ring-red-500/50';
-              } else if (isMoodRecorded) {
-                // If no status, but mood exists, show a subtle white border
-                borderClass = 'border-white/50';
-              } else if (isToday) {
-                // If no status, no mood, but it's today, use indigo
-                borderClass = 'border-indigo-500';
-              }
+                const baseBgClass = isToday && !isMoodRecorded && !isStatusRecorded
+                  ? 'bg-indigo-100 text-indigo-700 font-bold'
+                  : 'text-gray-900 hover:bg-indigo-50';
 
-              const baseBgClass = isToday && !isMoodRecorded && !isStatusRecorded
-                ? 'bg-indigo-100 text-indigo-700 font-bold'
-                : 'text-gray-900 hover:bg-indigo-50';
+                const moodBgClass = isMoodRecorded
+                  ? `text-white font-bold transform scale-105 shadow-md ${!isCustom ? moodClass : ''}`
+                  : '';
 
-              const moodBgClass = isMoodRecorded
-                ? `text-white font-bold transform scale-105 shadow-md ${!isCustom ? moodClass : ''}`
-                : '';
+                return (
+                  <div key={index} className="aspect-square">
+                    {day !== null ? (
+                      <button
+                        onClick={() => handleDayClick(day)}
+                        className={`
+                            w-full h-full flex items-center justify-center rounded-lg relative
+                            font-medium text-base sm:text-lg transition-all duration-150 border-2
+                            ${baseBgClass}
+                            ${moodBgClass}
+                            ${borderClass}
+                          `}
+                        style={moodStyle}
+                      >
+                        {day}
+                        {isMoodRecorded && (
+                          <span className="absolute bottom-1 right-1 text-xs sm:text-sm leading-none">{record.mood.emoji}</span>
+                        )}
+                        {hasNote && (
+                          <div className="absolute top-1 left-1 w-2 h-2 bg-purple-400 rounded-full shadow-lg" title="มีบันทึก"></div>
+                        )}
+                      </button>
+                    ) : (
+                      <div className="w-full h-full"></div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
 
-              return (
-                <div key={index} className="aspect-square">
-                  {day !== null ? (
-                    <button
-                      onClick={() => handleDayClick(day)}
-                      className={`
-                        w-full h-full flex items-center justify-center rounded-lg relative
-                        font-medium text-base sm:text-lg transition-all duration-150 border-2
-                        ${baseBgClass}
-                        ${moodBgClass}
-                        ${borderClass}
-                      `}
-                      style={moodStyle}
-                    >
-                      {day}
-                      {isMoodRecorded && (
-                        <span className="absolute bottom-1 right-1 text-xs sm:text-sm leading-none">{record.mood.emoji}</span>
-                      )}
-                      {hasNote && (
-                        <div className="absolute top-1 left-1 w-2 h-2 bg-purple-400 rounded-full shadow-lg" title="มีบันทึก"></div>
-                      )}
-                    </button>
-                  ) : (
-                    <div className="w-full h-full"></div>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-
-          {/* === ปุ่มเปิด Modal จัดการอารมณ์ === */}
-          <div className="w-full max-w-xl flex justify-end mt-4">
-            <button
-              onClick={() => setIsManagementModalOpen(true)}
-              className="flex items-center text-indigo-600 hover:bg-indigo-50 p-2 rounded-lg font-medium transition-colors border border-transparent hover:border-indigo-200 text-sm sm:text-base"
-            >
-              <Edit size={18} className="mr-2" /> จัดการอารมณ์กำหนดเอง
-            </button>
+            {/* === ปุ่มเปิด Modal จัดการอารมณ์ === */}
+            <div className="w-full max-w-xl flex justify-end mt-4">
+              <button
+                onClick={() => setIsManagementModalOpen(true)}
+                className="flex items-center text-indigo-600 hover:bg-indigo-50 p-2 rounded-lg font-medium transition-colors border border-transparent hover:border-indigo-200 text-sm sm:text-base"
+              >
+                <Edit size={18} className="mr-2" /> จัดการอารมณ์กำหนดเอง
+              </button>
+            </div>
           </div>
         </div>
-      </div>
+      )}
 
       {/* === Modal Overlay สำหรับเลือกอารมณ์และบันทึกโน้ต (ใช้คอมโพเนนต์ที่ดึงออกมา) === */}
       <MoodNoteEditor
