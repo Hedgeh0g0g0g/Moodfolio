@@ -25,7 +25,7 @@ const WEEKDAYS = ['อา', 'จ', 'อ', 'พ', 'พฤ', 'ศ', 'ส'];
 const DEFAULT_MOODS = [
   { id: 'happy', emoji: '😄', label: 'มีความสุข', color_tailwind: 'bg-yellow-400', is_custom: false },
   { id: 'calm', emoji: '😊', label: 'สงบ', color_tailwind: 'bg-green-400', is_custom: false },
-  { id: 'neutral', emoji: 'git😐', label: 'เฉยๆ', color_tailwind: 'bg-gray-400', is_custom: false },
+  { id: 'neutral', emoji: '😐', label: 'เฉยๆ', color_tailwind: 'bg-gray-400', is_custom: false },
   { id: 'anxious', emoji: '😟', label: 'กังวล', color_tailwind: 'bg-orange-400', is_custom: false },
   { id: 'angry', emoji: '😠', label: 'โกรธ', color_tailwind: 'bg-red-500', is_custom: false },
   { id: 'sad', emoji: '😢', label: 'เศร้า', color_tailwind: 'bg-blue-400', is_custom: false },
@@ -574,7 +574,7 @@ const CustomMoodFormModal = ({ isOpen, onClose, onSave, moodToEdit }) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-[60] p-4">
+    <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-60 p-4">
       <div className="bg-white rounded-xl shadow-2xl w-full max-w-full sm:max-w-sm p-4 sm:p-6">
         <div className="flex justify-between items-center pb-4 border-b">
           <h3 className="text-xl font-bold text-gray-800 flex items-center">
@@ -634,7 +634,7 @@ const CustomMoodFormModal = ({ isOpen, onClose, onSave, moodToEdit }) => {
                   }
                 }}
                 required
-                className="flex-grow border border-gray-300 rounded-lg p-3 font-mono"
+                className="grow border border-gray-300 rounded-lg p-3 font-mono"
                 placeholder="#RRGGBB"
                 maxLength={7}
               />
@@ -657,7 +657,7 @@ const CustomMoodsManagementModal = ({ isOpen, onClose, customMoods, onEdit, onDe
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-[60] p-4">
+    <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-60 p-4">
       <div className="bg-white rounded-xl shadow-2xl w-full max-w-full sm:max-w-xl p-4 sm:p-6">
         <div className="flex justify-between items-center pb-4 border-b">
           <h3 className="text-xl font-bold text-gray-800 flex items-center">
@@ -835,7 +835,7 @@ const MoodNoteEditor = React.memo(({
         </div>
 
         {/* === 2. Note Editor (Textarea Styled as Rich Editor) === */}
-        <div className="mt-4 flex-grow flex flex-col">
+        <div className="mt-4 grow flex flex-col">
           <h4 className="text-sm font-semibold text-gray-600 mb-2 flex items-center">
             <BookOpen size={16} className="text-indigo-500 mr-2" />
             2. บันทึก/โน้ตประจำวัน (ไม่เกิน 500 ตัวอักษร)
@@ -847,7 +847,7 @@ const MoodNoteEditor = React.memo(({
             }}
             placeholder={notePlaceholder}
             maxLength={500}
-            className="flex-grow w-full border border-gray-300 rounded-xl p-4 resize-none focus:ring-indigo-500 focus:border-indigo-500 shadow-inner bg-gray-50/70 text-gray-800 text-base font-serif leading-relaxed transition-shadow"
+            className="grow w-full border border-gray-300 rounded-xl p-4 resize-none focus:ring-indigo-500 focus:border-indigo-500 shadow-inner bg-gray-50/70 text-gray-800 text-base font-serif leading-relaxed transition-shadow"
             style={{ minHeight: '150px' }}
             autoFocus
           />
