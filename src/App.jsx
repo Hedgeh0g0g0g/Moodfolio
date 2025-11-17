@@ -17,7 +17,7 @@ import {
 const MONTHS = [
   'มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน',
   'พฤษภาคม', 'มิถุนายน', 'กรกฎาคม', 'สิงหาคม',
-  'กันยายน', 'ตุลาคม', 'ธันวาคม'
+  'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'
 ];
 const WEEKDAYS = ['อา', 'จ', 'อ', 'พ', 'พฤ', 'ศ', 'ส'];
 
@@ -25,7 +25,7 @@ const WEEKDAYS = ['อา', 'จ', 'อ', 'พ', 'พฤ', 'ศ', 'ส'];
 const DEFAULT_MOODS = [
   { id: 'happy', emoji: '😄', label: 'มีความสุข', color_tailwind: 'bg-yellow-400', is_custom: false },
   { id: 'calm', emoji: '😊', label: 'สงบ', color_tailwind: 'bg-green-400', is_custom: false },
-  { id: 'neutral', emoji: '😐', label: 'เฉยๆ', color_tailwind: 'bg-gray-400', is_custom: false },
+  { id: 'neutral', emoji: 'git😐', label: 'เฉยๆ', color_tailwind: 'bg-gray-400', is_custom: false },
   { id: 'anxious', emoji: '😟', label: 'กังวล', color_tailwind: 'bg-orange-400', is_custom: false },
   { id: 'angry', emoji: '😠', label: 'โกรธ', color_tailwind: 'bg-red-500', is_custom: false },
   { id: 'sad', emoji: '😢', label: 'เศร้า', color_tailwind: 'bg-blue-400', is_custom: false },
@@ -523,7 +523,7 @@ function FloatingLines({
 }
 // === END FLOATING LINES COMPONENT ===
 
-// --- Custom Mood Form Component (No Change) ---
+// --- Custom Mood Form Component ---
 const CustomMoodFormModal = ({ isOpen, onClose, onSave, moodToEdit }) => {
   const isEditing = !!moodToEdit;
 
@@ -575,7 +575,7 @@ const CustomMoodFormModal = ({ isOpen, onClose, onSave, moodToEdit }) => {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-[60] p-4">
-      <div className="bg-white rounded-xl shadow-2xl w-full max-w-sm p-6">
+      <div className="bg-white rounded-xl shadow-2xl w-full max-w-full sm:max-w-sm p-4 sm:p-6">
         <div className="flex justify-between items-center pb-4 border-b">
           <h3 className="text-xl font-bold text-gray-800 flex items-center">
             {isEditing ? 'แก้ไขอารมณ์กำหนดเอง' : 'สร้างอารมณ์กำหนดเอง'}
@@ -595,7 +595,7 @@ const CustomMoodFormModal = ({ isOpen, onClose, onSave, moodToEdit }) => {
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
-              className="w-full border border-gray-300 rounded-lg p-2 focus:ring-indigo-500 focus:border-indigo-500"
+              className="w-full border border-gray-300 rounded-lg p-3 focus:ring-indigo-500 focus:border-indigo-500"
               maxLength={20}
               placeholder="ชื่ออารมณ์"
             />
@@ -609,7 +609,7 @@ const CustomMoodFormModal = ({ isOpen, onClose, onSave, moodToEdit }) => {
               value={emoji}
               onChange={(e) => setEmoji(e.target.value)}
               required
-              className="w-full border border-gray-300 rounded-lg p-2 text-2xl text-center focus:ring-indigo-500 focus:border-indigo-500"
+              className="w-full border border-gray-300 rounded-lg p-3 text-2xl text-center focus:ring-indigo-500 focus:border-indigo-500"
               maxLength={2}
             />
           </div>
@@ -634,7 +634,7 @@ const CustomMoodFormModal = ({ isOpen, onClose, onSave, moodToEdit }) => {
                   }
                 }}
                 required
-                className="flex-grow border border-gray-300 rounded-lg p-2 font-mono"
+                className="flex-grow border border-gray-300 rounded-lg p-3 font-mono"
                 placeholder="#RRGGBB"
                 maxLength={7}
               />
@@ -652,13 +652,13 @@ const CustomMoodFormModal = ({ isOpen, onClose, onSave, moodToEdit }) => {
   );
 };
 
-// --- Custom Mood Management Modal Component (No Change) ---
+// --- Custom Mood Management Modal Component ---
 const CustomMoodsManagementModal = ({ isOpen, onClose, customMoods, onEdit, onDelete }) => {
   if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-[60] p-4">
-      <div className="bg-white rounded-xl shadow-2xl w-full max-w-xl p-6">
+      <div className="bg-white rounded-xl shadow-2xl w-full max-w-full sm:max-w-xl p-4 sm:p-6">
         <div className="flex justify-between items-center pb-4 border-b">
           <h3 className="text-xl font-bold text-gray-800 flex items-center">
             <Edit size={20} className="mr-2 text-indigo-500" /> จัดการอารมณ์กำหนดเอง ({customMoods.length})
@@ -675,18 +675,18 @@ const CustomMoodsManagementModal = ({ isOpen, onClose, customMoods, onEdit, onDe
             customMoods.map(mood => (
               <div
                 key={mood.id}
-                className="flex items-center justify-between p-3 rounded-lg shadow-sm border border-gray-200 transition-shadow hover:shadow-md"
+                className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-3 rounded-lg shadow-sm border border-gray-200 transition-shadow hover:shadow-md"
                 style={{ borderLeft: `8px solid ${mood.color_hex}`, backgroundColor: 'rgba(255, 255, 255, 0.95)' }}
               >
-                <div className="flex items-center space-x-3">
+                <div className="flex items-center space-x-3 mb-2 sm:mb-0">
                   <span className="text-2xl">{mood.emoji}</span>
                   <p className="font-semibold text-gray-800">{mood.label}</p>
                   <code className="text-xs font-mono text-gray-600 p-1 bg-gray-100 rounded">{mood.color_hex}</code>
                 </div>
-                <div className="flex space-x-2">
+                <div className="flex space-x-2 w-full sm:w-auto justify-end">
                   <button
                     onClick={() => onEdit(mood)}
-                    className="flex items-center text-indigo-600 hover:text-indigo-800 p-2 rounded-lg bg-indigo-50 hover:bg-indigo-100 transition-colors text-sm font-medium"
+                    className="flex-1 sm:flex-none flex items-center justify-center text-indigo-600 hover:text-indigo-800 p-2 rounded-lg bg-indigo-50 hover:bg-indigo-100 transition-colors text-sm font-medium"
                   >
                     <Edit size={16} className="mr-1" /> แก้ไข
                   </button>
@@ -695,7 +695,7 @@ const CustomMoodsManagementModal = ({ isOpen, onClose, customMoods, onEdit, onDe
                       console.warn(`Deleting custom mood: ${mood.label}. All associated records in the calendar will also be removed.`);
                       onDelete(mood.id);
                     }}
-                    className="flex items-center text-red-600 hover:text-red-800 p-2 rounded-lg bg-red-50 hover:bg-red-100 transition-colors text-sm font-medium"
+                    className="flex-1 sm:flex-none flex items-center justify-center text-red-600 hover:text-red-800 p-2 rounded-lg bg-red-50 hover:bg-red-100 transition-colors text-sm font-medium"
                   >
                     <Trash2 size={16} className="mr-1" /> ลบ
                   </button>
@@ -763,9 +763,10 @@ const MoodNoteEditor = React.memo(({
   // 1. Check if mood OR note has been entered (requires status check)
   const isMoodEntered = !!currentMood;
   const isNoteEntered = note.trim() !== '';
-  const isDataEntered = isMoodEntered || isNoteEntered;
+  const isDataEntered = isMoodEntered || isNoteEntered || isOkay !== null;
 
   // 2. Check if the required binary status is missing (only if data is present)
+  // We require isOkay to be explicitly true or false if there is ANY data entered.
   const isStatusMissing = isDataEntered && isOkay === null;
 
   // 3. New final disabled condition for the save button: 
@@ -784,7 +785,7 @@ const MoodNoteEditor = React.memo(({
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 p-4">
-      <div className="bg-white rounded-xl shadow-2xl w-full max-w-2xl p-6 flex flex-col max-h-[90vh]">
+      <div className="bg-white rounded-xl shadow-2xl w-full max-w-full sm:max-w-2xl p-4 sm:p-6 flex flex-col max-h-[90vh]">
 
         {/* Header */}
         <div className="flex justify-between items-center pb-4 border-b">
@@ -807,7 +808,7 @@ const MoodNoteEditor = React.memo(({
             ) : <span className="text-lg font-bold ml-2 text-gray-500">ยังไม่เลือก</span>}
           </h4>
           <div className="max-h-40 overflow-y-auto border-b pb-2 -mx-2 px-2">
-            <div className="grid grid-cols-4 gap-3">
+            <div className="grid grid-cols-3 sm:grid-cols-4 gap-3">
               {allMoods.map(moodItem => {
                 const isSelected = currentMood?.id === moodItem.id;
                 const isCustom = moodItem.is_custom;
@@ -820,12 +821,12 @@ const MoodNoteEditor = React.memo(({
                     onClick={() => onMoodSelect(moodItem)}
                     className={`p-3 rounded-xl flex flex-col items-center justify-center transition-all shadow-md text-white font-semibold 
                     ${!isCustom ? moodClass : ''}
-                    ${isSelected ? 'scale-110 ring-4 ring-offset-2 ring-indigo-500/70' : 'hover:scale-105'}
+                    ${isSelected ? 'scale-105 sm:scale-110 ring-4 ring-offset-2 ring-indigo-500/70' : 'hover:scale-105'}
                   `}
                     style={moodStyle}
                   >
-                    <span className="text-3xl mb-1">{moodItem.emoji}</span>
-                    <span className="text-xs">{moodItem.label}</span>
+                    <span className="text-2xl sm:text-3xl mb-1">{moodItem.emoji}</span>
+                    <span className="text-xs sm:text-sm">{moodItem.label}</span>
                   </button>
                 );
               })}
@@ -863,10 +864,10 @@ const MoodNoteEditor = React.memo(({
           </h4>
 
           {/* Removed the third button for setIsOkay(null) */}
-          <div className="flex space-x-4">
+          <div className="flex flex-col space-y-3 sm:space-y-0 sm:flex-row sm:space-x-4">
             <button
               onClick={() => setIsOkay(true)}
-              className={`flex-1 flex items-center justify-center p-4 rounded-xl font-bold text-lg transition-all shadow-lg 
+              className={`flex-1 flex items-center justify-center p-3 sm:p-4 rounded-xl font-bold text-lg transition-all shadow-lg 
                         ${isOkay === true
                   ? 'bg-green-600 text-white scale-105 ring-4 ring-green-500/50'
                   : 'bg-green-100 text-green-700 hover:bg-green-200'
@@ -876,7 +877,7 @@ const MoodNoteEditor = React.memo(({
             </button>
             <button
               onClick={() => setIsOkay(false)}
-              className={`flex-1 flex items-center justify-center p-4 rounded-xl font-bold text-lg transition-all shadow-lg 
+              className={`flex-1 flex items-center justify-center p-3 sm:p-4 rounded-xl font-bold text-lg transition-all shadow-lg 
                         ${isOkay === false
                   ? 'bg-red-600 text-white scale-105 ring-4 ring-red-500/50'
                   : 'bg-red-100 text-red-700 hover:bg-red-200'
@@ -896,7 +897,7 @@ const MoodNoteEditor = React.memo(({
 
 
         {/* === 4. Action Buttons / Footer (Quick Access Button Removed) === */}
-        <div className="mt-6 pt-4 border-t flex justify-between items-center">
+        <div className="mt-6 pt-4 border-t flex justify-between items-center flex-wrap gap-3">
 
           <button
             onClick={onDeleteRecord}
@@ -1106,9 +1107,9 @@ function App() {
       </div>
 
       {/* === Calendar Content Layer === */}
-      <div className="relative z-20 w-full max-w-xl">
-        <div className="bg-white/90 backdrop-blur-sm rounded-xl shadow-2xl p-6 w-full transition-all duration-300">
-          <h1 className="text-3xl font-extrabold text-center text-indigo-700 mb-6 flex items-center justify-center">
+      <div className="relative z-20 w-full max-w-lg sm:max-w-xl">
+        <div className="bg-white/90 backdrop-blur-sm rounded-xl shadow-2xl p-4 sm:p-6 w-full transition-all duration-300">
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-center text-indigo-700 mb-6 flex items-center justify-center">
             <span className="mr-2">Moodfolio</span> 🗓️
           </h1>
 
@@ -1119,13 +1120,13 @@ function App() {
             </button>
 
             <div className="flex items-center space-x-3">
-              <h2 className="text-2xl font-bold text-gray-800">
+              <h2 className="text-xl sm:text-2xl font-bold text-gray-800">
                 {MONTHS[currentMonthIndex]}
               </h2>
               <select
                 value={currentYear}
                 onChange={handleYearChange}
-                className="border border-gray-300 rounded-lg py-1 px-2 text-lg font-medium focus:ring-indigo-500 focus:border-indigo-500 bg-white/70"
+                className="border border-gray-300 rounded-lg py-2 px-3 text-base sm:text-lg font-medium focus:ring-indigo-500 focus:border-indigo-500 bg-white/70"
               >
                 {[...Array(11)].map((_, i) => {
                   const yearOption = today.getFullYear() - 5 + i;
@@ -1140,11 +1141,11 @@ function App() {
           </div>
 
           {/* === ส่วนแสดงปฏิทิน === */}
-          <div className="grid grid-cols-7 text-center text-sm font-semibold text-gray-600 mb-2">
-            {WEEKDAYS.map(day => (<div key={day} className="p-2">{day}</div>))}
+          <div className="grid grid-cols-7 text-center text-xs sm:text-sm font-semibold text-gray-600 mb-2">
+            {WEEKDAYS.map(day => (<div key={day} className="p-1 sm:p-2">{day}</div>))}
           </div>
 
-          <div className="grid grid-cols-7 gap-1">
+          <div className="grid grid-cols-7 gap-1 sm:gap-2">
             {calendarDays.map((day, index) => {
               const dateKey = day ? `${currentYear}-${String(currentMonthIndex + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}` : null;
               const record = moodRecords[dateKey];
@@ -1191,7 +1192,7 @@ function App() {
                       onClick={() => handleDayClick(day)}
                       className={`
                         w-full h-full flex items-center justify-center rounded-lg relative
-                        font-medium text-lg transition-all duration-150 border-2
+                        font-medium text-base sm:text-lg transition-all duration-150 border-2
                         ${baseBgClass}
                         ${moodBgClass}
                         ${borderClass}
@@ -1200,7 +1201,7 @@ function App() {
                     >
                       {day}
                       {isMoodRecorded && (
-                        <span className="absolute bottom-1 right-1 text-sm leading-none">{record.mood.emoji}</span>
+                        <span className="absolute bottom-1 right-1 text-xs sm:text-sm leading-none">{record.mood.emoji}</span>
                       )}
                       {hasNote && (
                         <div className="absolute top-1 left-1 w-2 h-2 bg-purple-400 rounded-full shadow-lg" title="มีบันทึก"></div>
@@ -1218,7 +1219,7 @@ function App() {
           <div className="w-full max-w-xl flex justify-end mt-4">
             <button
               onClick={() => setIsManagementModalOpen(true)}
-              className="flex items-center text-indigo-600 hover:bg-indigo-50 p-2 rounded-lg font-medium transition-colors border border-transparent hover:border-indigo-200"
+              className="flex items-center text-indigo-600 hover:bg-indigo-50 p-2 rounded-lg font-medium transition-colors border border-transparent hover:border-indigo-200 text-sm sm:text-base"
             >
               <Edit size={18} className="mr-2" /> จัดการอารมณ์กำหนดเอง
             </button>
