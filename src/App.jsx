@@ -1,3 +1,4 @@
+//add แล้วนะไอเวร
 import React, { useState, useEffect, useRef } from 'react';
 import { ChevronLeft, ChevronRight, X, Trash2, PlusCircle, Save, Edit, BookOpen } from 'lucide-react';
 // Import Three.js necessary modules
